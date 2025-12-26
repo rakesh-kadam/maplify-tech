@@ -79,7 +79,7 @@ jobs:
         run: pnpm build
 
       - name: Upload preview artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: pr-preview-${{ github.event.pull_request.number }}
           path: |
