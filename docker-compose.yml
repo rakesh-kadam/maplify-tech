@@ -1,0 +1,94 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: maplify-tech-postgres
+    environment:
+      POSTGRES_DB: maplify
+      POSTGRES_USER: maplify
+      POSTGRES_PASSWORD: maplify123
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U maplify"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - maplify-tech
+
+  minio:
+    image: minio/minio:latest
+    container_name: maplify-tech-minio
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin123
+    volumes:
+      - minio-data:/data
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    networks:
+      - maplify-tech
+
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    container_name: maplify-tech-api
+    environment:
+      NODE_ENV: production
+      PORT: 8787
+      DATABASE_URL: postgresql://maplify:maplify123@postgres:5432/maplify
+      MINIO_ENDPOINT: minio
+      MINIO_PORT: 9000
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin123
+      MINIO_USE_SSL: "false"
+      JWT_SECRET: your-secret-key-change-in-production
+      CORS_ORIGIN: http://localhost:3000
+    ports:
+      - "8787:8787"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+    networks:
+      - maplify-tech
+    restart: unless-stopped
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    container_name: maplify-tech-web
+    environment:
+      VITE_API_URL: http://localhost:8787
+    ports:
+      - "3000:80"
+    depends_on:
+      - api
+    networks:
+      - maplify-tech
+    restart: unless-stopped
+
+volumes:
+  postgres-data:
+    driver: local
+  minio-data:
+    driver: local
+
+networks:
+  maplify-tech:
+    driver: bridge

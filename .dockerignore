@@ -1,0 +1,110 @@
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Dependencies (will be installed in container)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Build outputs (will be built in container)
+dist/
+build/
+.next/
+out/
+coverage/
+
+# Development files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment files (use build args or secrets)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env*.local
+*.env
+!.env.example
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# Documentation (not needed in container)
+*.md
+!README.md
+docs/
+LICENSE
+CONTRIBUTING.md
+SECURITY.md
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+.travis.yml
+.circleci/
+
+# Docker files (prevent recursive copying)
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# Kubernetes manifests (not needed in container)
+infrastructure/
+*.yaml
+*.yml
+
+# Testing
+coverage/
+.nyc_output/
+*.test.ts
+*.test.tsx
+*.test.js
+*.spec.ts
+*.spec.tsx
+*.spec.js
+__tests__/
+__mocks__/
+
+# Turborepo cache
+.turbo/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.log
+*.pid
+*.seed
+*.pid.lock
+
+# Database files
+*.sql
+*.dump
+*.db
+*.db-journal
+prisma/migrations/
+
+# Backup files
+*.bak
+*.backup
+
+# TypeScript build info
+*.tsbuildinfo
+
+# Package manager alternative locks
+package-lock.json
+yarn.lock

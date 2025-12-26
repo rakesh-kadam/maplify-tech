@@ -1,0 +1,45 @@
+{
+  "name": "maplify-tech",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Self-hosted collaborative whiteboard application",
+  "packageManager": "pnpm@9.0.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "docker:build": "docker-compose build",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f",
+    "k8s:deploy": "kubectl apply -k infrastructure/kubernetes/base/",
+    "k8s:delete": "kubectl delete -k infrastructure/kubernetes/base/",
+    "k8s:status": "kubectl get all -n maplify-tech"
+  },
+  "devDependencies": {
+    "turbo": "^2.3.3",
+    "typescript": "^5.6.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/maplify-tech.git"
+  },
+  "keywords": [
+    "whiteboard",
+    "excalidraw",
+    "self-hosted",
+    "kubernetes",
+    "docker",
+    "react",
+    "typescript",
+    "collaboration"
+  ],
+  "author": "Maplify Tech Contributors",
+  "license": "MIT"
+}

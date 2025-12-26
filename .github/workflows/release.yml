@@ -1,0 +1,133 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  create-release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get version from tag
+        id: version
+        run: echo "version=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Generate changelog
+        id: changelog
+        uses: metcalfc/changelog-generator@v4.3.1
+        with:
+          myToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Release v${{ steps.version.outputs.version }}
+          body: |
+            ## What's Changed
+
+            ${{ steps.changelog.outputs.changelog }}
+
+            ## Docker Images
+
+            Pull the Docker images from Docker Hub:
+            ```bash
+            docker pull rakeshkadam/maplify-tech-web:v${{ steps.version.outputs.version }}
+            docker pull rakeshkadam/maplify-tech-api:v${{ steps.version.outputs.version }}
+            ```
+
+            Or use latest:
+            ```bash
+            docker pull rakeshkadam/maplify-tech-web:latest
+            docker pull rakeshkadam/maplify-tech-api:latest
+            ```
+
+            ## Quick Start
+
+            Run with Docker Compose:
+            ```bash
+            docker-compose -f docker-compose.prod.yml up -d
+            ```
+
+            ## Installation
+
+            See the [documentation](https://github.com/${{ github.repository }}/blob/main/README.md) for installation instructions.
+          draft: false
+          prerelease: ${{ contains(steps.version.outputs.version, 'rc') || contains(steps.version.outputs.version, 'beta') || contains(steps.version.outputs.version, 'alpha') }}
+
+  build-release-assets:
+    name: Build Release Assets
+    runs-on: ubuntu-latest
+    needs: create-release
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: '9.0.0'
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate Prisma Client
+        run: pnpm --filter @maplify-tech/api prisma:generate
+
+      - name: Build all packages
+        run: pnpm build
+
+      - name: Create release archives
+        run: |
+          cd apps/web/dist
+          tar -czf ../../../maplify-tech-web-${GITHUB_REF#refs/tags/}.tar.gz .
+          cd ../../api/dist
+          tar -czf ../../../maplify-tech-api-${GITHUB_REF#refs/tags/}.tar.gz .
+
+      - name: Upload release assets
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            maplify-tech-web-*.tar.gz
+            maplify-tech-api-*.tar.gz
+
+  notify-release:
+    name: Notify Release
+    runs-on: ubuntu-latest
+    needs: [create-release, build-release-assets]
+
+    steps:
+      - name: Send Slack notification
+        uses: 8398a7/action-slack@v3
+        with:
+          status: custom
+          custom_payload: |
+            {
+              text: "🎉 New release published!",
+              attachments: [{
+                color: 'good',
+                text: `Version ${process.env.AS_VERSION} of Maplify Tech has been released!\n\nView release: https://github.com/${{ github.repository }}/releases/tag/${process.env.AS_VERSION}`
+              }]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          AS_VERSION: ${{ github.ref_name }}
+        continue-on-error: true

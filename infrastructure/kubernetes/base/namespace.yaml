@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: maplify-tech
+  labels:
+    name: maplify-tech
+    environment: production

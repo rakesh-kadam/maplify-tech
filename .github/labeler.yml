@@ -1,0 +1,66 @@
+# Automatic labeling based on file paths
+
+# Frontend changes
+'frontend':
+  - apps/web/**/*
+
+# Backend changes
+'backend':
+  - apps/api/**/*
+
+# Database changes
+'database':
+  - apps/api/prisma/**/*
+
+# Infrastructure changes
+'infrastructure':
+  - infrastructure/**/*
+  - docker-compose.yml
+  - '**/*.Dockerfile'
+  - '**/Dockerfile'
+
+# CI/CD changes
+'ci/cd':
+  - .github/workflows/**/*
+
+# Documentation changes
+'documentation':
+  - '**/*.md'
+  - docs/**/*
+
+# Dependencies
+'dependencies':
+  - '**/package.json'
+  - pnpm-lock.yaml
+
+# Configuration
+'configuration':
+  - '**/*.config.js'
+  - '**/*.config.ts'
+  - '**/tsconfig.json'
+  - .env.example
+
+# Shared packages
+'shared':
+  - packages/shared/**/*
+
+# Kubernetes
+'kubernetes':
+  - infrastructure/kubernetes/**/*
+
+# Docker
+'docker':
+  - '**/Dockerfile'
+  - docker-compose*.yml
+
+# TypeScript
+'typescript':
+  - '**/*.ts'
+  - '**/*.tsx'
+
+# Tests
+'tests':
+  - '**/*.test.ts'
+  - '**/*.test.tsx'
+  - '**/*.spec.ts'
+  - '**/*.spec.tsx'

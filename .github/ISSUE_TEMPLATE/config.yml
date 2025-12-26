@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Question or Discussion
+    url: https://github.com/yourusername/maplify-tech/discussions
+    about: Ask questions or discuss ideas in GitHub Discussions
+  - name: Security Vulnerability
+    url: https://github.com/yourusername/maplify-tech/security/advisories/new
+    about: Report security vulnerabilities privately
+  - name: Documentation
+    url: https://github.com/yourusername/maplify-tech/blob/main/README.md
+    about: Check the documentation for help and guides
