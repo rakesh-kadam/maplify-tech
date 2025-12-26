@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
       - name: api
-        image: your-registry/maplify-tech-api:latest
+        image: rakeshkadam/maplify-tech-api:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8787
