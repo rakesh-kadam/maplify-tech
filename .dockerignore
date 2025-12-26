@@ -64,8 +64,11 @@ docker-compose*.yml
 
 # Kubernetes manifests (not needed in container)
 infrastructure/
-*.yaml
-*.yml
+infrastructure/**/*.yaml
+infrastructure/**/*.yml
+
+# Keep workspace files needed for build
+!pnpm-workspace.yaml
 
 # Testing
 coverage/
