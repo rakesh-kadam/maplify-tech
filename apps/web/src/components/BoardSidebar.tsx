@@ -1,13 +1,19 @@
 import { useBoardsStore } from '../hooks/useBoards';
-import { Search, Plus, MoreVertical, Download, Upload } from 'lucide-react';
+import { Search, Plus, MoreVertical, Download, Upload, Home } from 'lucide-react';
 import { useState, useRef } from 'react';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { formatDate } from '../utils/helpers';
 import { exportAllBoardsAsJSON } from '../utils/export';
 import { importBoardFromFile } from '../utils/import';
 import { exportAllBoards } from '../utils/storage';
+import { Button } from './ui/button';
 
-export function BoardSidebar() {
+interface BoardSidebarProps {
+  onBoardSelect?: (boardId: string) => void;
+  onBackToDashboard?: () => void;
+}
+
+export function BoardSidebar({ onBoardSelect, onBackToDashboard }: BoardSidebarProps) {
   const {
     boards,
     currentBoardId,
@@ -66,10 +72,28 @@ export function BoardSidebar() {
     }
   };
 
+  const handleBoardClick = (boardId: string) => {
+    selectBoard(boardId);
+    if (onBoardSelect) {
+      onBoardSelect(boardId);
+    }
+  };
+
   return (
     <div className="w-60 h-full bg-gray-50 dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 flex flex-col">
       {/* Header */}
       <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+        {onBackToDashboard && (
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={onBackToDashboard}
+            className="w-full mb-3 justify-start"
+          >
+            <Home className="w-4 h-4 mr-2" />
+            Back to Dashboard
+          </Button>
+        )}
         <div className="flex items-center gap-2 mb-3">
           <Search className="w-4 h-4 text-gray-400 dark:text-gray-500" />
           <input
@@ -104,7 +128,7 @@ export function BoardSidebar() {
                   ? 'bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800'
                   : 'border border-transparent'
               }`}
-              onClick={() => selectBoard(board.id)}
+              onClick={() => handleBoardClick(board.id)}
             >
               <div className="flex gap-2">
                 {/* Thumbnail Preview */}
