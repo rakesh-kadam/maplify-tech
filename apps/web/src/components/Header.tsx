@@ -3,12 +3,14 @@ import { useAuthStore } from '../hooks/useAuth';
 import { useThemeStore } from '../hooks/useTheme';
 import { Sun, Moon, Download, Settings, LogOut, User } from 'lucide-react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { exportBoardAsPNG, exportBoardAsSVG, exportBoardAsJSON } from '../utils/export';
 import { formatDate } from '../utils/helpers';
 import { SettingsDialog } from './SettingsDialog';
 
 export function Header() {
+  const navigate = useNavigate();
   const { currentBoard, lastSavedAt } = useBoardsStore();
   const { user, logout } = useAuthStore();
   const { theme, effectiveTheme, setTheme } = useThemeStore();
@@ -18,6 +20,7 @@ export function Header() {
   const handleLogout = async () => {
     if (confirm('Are you sure you want to log out?')) {
       await logout();
+      navigate('/', { replace: true });
     }
   };
 

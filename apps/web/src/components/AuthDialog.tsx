@@ -5,6 +5,7 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
+import { ArrowLeft } from 'lucide-react';
 
 interface AuthDialogProps {
   showLanding?: boolean;
@@ -44,13 +45,13 @@ export function AuthDialog({ showLanding = false, onShowLanding }: AuthDialogPro
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 bg-black/50 backdrop-blur-sm" />
         <Dialog.Content className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md">
-          <Card className="shadow-xl border-0">
+          <Card className="shadow-xl border-2">
             <CardHeader>
               <div className="flex items-center justify-center gap-2 mb-4">
-                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center text-white font-bold text-lg">
+                <div className="w-12 h-12 bg-yellow-400 rounded-xl flex items-center justify-center font-bold text-lg">
                   M
                 </div>
-                <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
+                <span className="text-2xl font-bold">
                   Maplify Tech
                 </span>
               </div>
@@ -75,6 +76,7 @@ export function AuthDialog({ showLanding = false, onShowLanding }: AuthDialogPro
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="John Doe"
+                      className="border-2"
                     />
                   </div>
                 )}
@@ -88,6 +90,7 @@ export function AuthDialog({ showLanding = false, onShowLanding }: AuthDialogPro
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="you@example.com"
+                    className="border-2"
                   />
                 </div>
 
@@ -101,6 +104,7 @@ export function AuthDialog({ showLanding = false, onShowLanding }: AuthDialogPro
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
+                    className="border-2"
                   />
                   {mode === 'register' && (
                     <p className="text-sm text-muted-foreground">
@@ -110,12 +114,16 @@ export function AuthDialog({ showLanding = false, onShowLanding }: AuthDialogPro
                 </div>
 
                 {error && (
-                  <div className="p-3 bg-destructive/10 text-destructive rounded-md text-sm border border-destructive/20">
+                  <div className="p-3 bg-destructive/10 text-destructive rounded-md text-sm border-2 border-destructive/20">
                     {error}
                   </div>
                 )}
 
-                <Button type="submit" className="w-full" disabled={isLoading}>
+                <Button 
+                  type="submit" 
+                  className="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-900" 
+                  disabled={isLoading}
+                >
                   {isLoading ? 'Loading...' : mode === 'login' ? 'Sign In' : 'Create Account'}
                 </Button>
 
@@ -138,9 +146,10 @@ export function AuthDialog({ showLanding = false, onShowLanding }: AuthDialogPro
                       type="button"
                       variant="ghost"
                       onClick={onShowLanding}
-                      className="text-sm"
+                      className="text-sm gap-2"
                     >
-                      ← Back to Home
+                      <ArrowLeft className="w-4 h-4" />
+                      Back to Home
                     </Button>
                   </div>
                 )}
