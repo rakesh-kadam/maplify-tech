@@ -36,7 +36,7 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-lg shadow-lg">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#535C91] to-[#9290C3] flex items-center justify-center text-white font-bold text-lg shadow-lg">
                 M
               </div>
               <span className="text-xl font-bold tracking-tight">Maplify Tech</span>
@@ -70,15 +70,15 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
       {/* Hero Section */}
       <section className="relative pt-20 pb-32 overflow-hidden hero-pattern">
         {/* Gradient blobs */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-blue-600/20 dark:bg-blue-600/10 rounded-full blur-3xl -z-10 pointer-events-none"></div>
-        <div className="absolute top-20 right-0 w-[400px] h-[400px] bg-purple-600/10 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#535C91]/20 dark:bg-[#535C91]/10 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+        <div className="absolute top-20 right-0 w-[400px] h-[400px] bg-[#9290C3]/10 rounded-full blur-3xl -z-10 pointer-events-none"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 text-sm font-medium mb-8">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-8">
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
             </span>
             Now available: v2.0 with Real-time Sync
           </div>
@@ -204,7 +204,7 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
             <Button
               size="lg"
               onClick={onGetStarted}
-              className="px-8 py-6 text-lg font-bold bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+              className="px-8 py-6 text-lg font-bold bg-gradient-to-r from-[#535C91] to-[#9290C3] hover:from-[#1B1A55] hover:to-[#535C91]"
             >
               Start Self-Hosting Now
             </Button>
@@ -223,7 +223,7 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
       <footer className="border-t border-border py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-xs font-bold">
+            <div className="w-6 h-6 rounded bg-gradient-to-br from-[#535C91] to-[#9290C3] flex items-center justify-center text-white text-xs font-bold">
               M
             </div>
             <span className="font-semibold">Maplify Tech</span>

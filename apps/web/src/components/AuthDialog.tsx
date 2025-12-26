@@ -48,7 +48,7 @@ export function AuthDialog({ showLanding = false, onShowLanding }: AuthDialogPro
           <Card className="shadow-xl border-2">
             <CardHeader>
               <div className="flex items-center justify-center gap-2 mb-4">
-                <div className="w-12 h-12 bg-yellow-400 rounded-xl flex items-center justify-center font-bold text-lg">
+                <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center font-bold text-lg">
                   M
                 </div>
                 <span className="text-2xl font-bold">
@@ -121,7 +121,7 @@ export function AuthDialog({ showLanding = false, onShowLanding }: AuthDialogPro
 
                 <Button 
                   type="submit" 
-                  className="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-900" 
+                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground" 
                   disabled={isLoading}
                 >
                   {isLoading ? 'Loading...' : mode === 'login' ? 'Sign In' : 'Create Account'}

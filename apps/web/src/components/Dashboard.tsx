@@ -58,7 +58,7 @@ export function Dashboard({ onBoardSelect }: DashboardProps) {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-yellow-400 rounded-lg flex items-center justify-center font-bold">
+              <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center font-bold">
                 M
               </div>
               <div>
@@ -115,7 +115,7 @@ export function Dashboard({ onBoardSelect }: DashboardProps) {
             <Button
               onClick={handleCreateBoard}
               disabled={isLoading}
-              className="bg-yellow-400 hover:bg-yellow-500 text-gray-900"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground"
             >
               <Plus className="w-4 h-4 mr-2" />
               New Board
@@ -144,7 +144,7 @@ export function Dashboard({ onBoardSelect }: DashboardProps) {
               {!searchQuery && (
                 <Button
                   onClick={handleCreateBoard}
-                  className="bg-yellow-400 hover:bg-yellow-500 text-gray-900"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground"
                 >
                   <Plus className="w-4 h-4 mr-2" />
                   Create Your First Board
@@ -157,12 +157,12 @@ export function Dashboard({ onBoardSelect }: DashboardProps) {
             {filteredBoards.map((board) => (
               <Card
                 key={board.id}
-                className="cursor-pointer hover:border-yellow-400 hover:shadow-lg transition-all group border-2"
+                className="cursor-pointer hover:border-primary hover:shadow-lg transition-all group border-2"
                 onClick={() => onBoardSelect(board.id)}
               >
                 <CardHeader>
-                  <div className="aspect-video bg-yellow-50 rounded-md mb-4 flex items-center justify-center group-hover:scale-105 transition-transform border-2 border-gray-200">
-                    <FileText className="w-12 h-12 text-yellow-600" />
+                  <div className="aspect-video bg-primary/10 rounded-md mb-4 flex items-center justify-center group-hover:scale-105 transition-transform border-2 border-border">
+                    <FileText className="w-12 h-12 text-primary" />
                   </div>
                   <CardTitle className="truncate">{board.name}</CardTitle>
                   <CardDescription className="flex items-center gap-2">
@@ -178,13 +178,13 @@ export function Dashboard({ onBoardSelect }: DashboardProps) {
             {filteredBoards.map((board) => (
               <Card
                 key={board.id}
-                className="cursor-pointer hover:border-yellow-400 hover:shadow-md transition-all border-2"
+                className="cursor-pointer hover:border-primary hover:shadow-md transition-all border-2"
                 onClick={() => onBoardSelect(board.id)}
               >
                 <CardHeader className="py-4">
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-yellow-50 rounded-md flex items-center justify-center flex-shrink-0 border-2 border-gray-200">
-                      <FileText className="w-6 h-6 text-yellow-600" />
+                    <div className="w-12 h-12 bg-primary/10 rounded-md flex items-center justify-center flex-shrink-0 border-2 border-border">
+                      <FileText className="w-6 h-6 text-primary" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <CardTitle className="truncate text-base">{board.name}</CardTitle>
