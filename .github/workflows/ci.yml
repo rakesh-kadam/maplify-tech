@@ -1,10 +1,12 @@
 name: CI
 
 on:
-  push:
-    branches: [main, develop]
   pull_request:
     branches: [main, develop]
+  workflow_dispatch:
+  schedule:
+    # Run weekly on Monday at 9 AM UTC
+    - cron: '0 9 * * 1'
 
 env:
   NODE_VERSION: '20'
